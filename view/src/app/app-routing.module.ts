@@ -1,15 +1,15 @@
-import { NgModule, Injectable } from '@angular/core';
-import { RouterModule, Routes, TitleStrategy, RouterStateSnapshot } from '@angular/router';
-import { Title } from '@angular/platform-browser';
-import { AngularHelpComponent } from './components/angular-help/angular-help.component';
-import { HomeComponentComponent } from './components/home-component/home-component.component';
+import { NgModule, Injectable } from "@angular/core";
+import { RouterModule, Routes, TitleStrategy, RouterStateSnapshot } from "@angular/router";
+import { Title } from "@angular/platform-browser";
+import { AngularHelpComponent } from "./components/angular-help/angular-help.component";
+import { HomeComponent } from "./components/home/home.component";
 
 const routes: Routes = [
-  { path: '', title: 'Home', component: HomeComponentComponent },
-  { path: 'help', title: 'Help', component: AngularHelpComponent }
+  { path: "", title: "Home", component: HomeComponent },
+  { path: "help", title: "Help", component: AngularHelpComponent }
 ];
 
-@Injectable({providedIn: 'root'})
+@Injectable({providedIn: "root"})
 export class TemplatePageTitleStrategy extends TitleStrategy {
   constructor(private readonly title: Title) {
     super();
