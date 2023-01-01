@@ -1,8 +1,8 @@
 import { NgModule, Injectable } from "@angular/core";
 import { RouterModule, Routes, TitleStrategy, RouterStateSnapshot } from "@angular/router";
 import { Title } from "@angular/platform-browser";
-import { AngularHelpComponent } from "./components/angular-help/angular-help.component";
-import { HomeComponent } from "./components/home/home.component";
+import { AngularHelpComponent } from "../components/angular-help/angular-help.component";
+import { HomeComponent } from "../components/home/home.component";
 
 const routes: Routes = [
   { path: "", title: "Home", component: HomeComponent },
