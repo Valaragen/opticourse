@@ -1,10 +1,26 @@
-version: '3'
+version: '3.8'
 services:
-  app:
-    build: .
-    ports:
-      - 3000:3000
-  postgresql-db:
+  api-db:
     image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
-      - 5432:5432
+      - ${DATABASE_PORT}:${DATABASE_PORT}
+    volumes:
+      - db:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/create_tables.sql
+  api:
+    container_name: opticourse-api
+    build: .
+    image: opticourse-api
+    depends_on:
+      - api-db
+    ports:
+      - ${API_PORT}:${API_PORT}
+    volumes:
+      - './:/src'
+volumes:
+  db:
+    driver: local

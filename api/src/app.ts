@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 const app = express();
-const port = process.env['PORT'];
+const port = process.env['API_PORT'];
 
 app.get('/api', (req, res) => {
   res.send('Hello, Worldo!' + port);

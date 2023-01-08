@@ -16,7 +16,7 @@
     "tslib": "^2.4.1"
   },
   "scripts": {
-    "start-db": "docker run --name my-postgres -e POSTGRES_PASSWORD=password -p 5432:5432 --rm postgres",
+    "start-db": "docker compose up api-db",
     "dev": "nodemon --watch src -e js,ts,json --exec \"ts-node src/app.ts\"",
     "start": "ts-node src/app.ts",
     "docker-start": "docker compose up",
