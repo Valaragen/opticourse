@@ -16,11 +16,13 @@
     "tslib": "^2.4.1"
   },
   "scripts": {
-    "start-db": "docker compose up api-db",
-    "dev": "nodemon --watch src -e js,ts,json --exec \"ts-node src/app.ts\"",
+    "build": "tsc -p .",
+    "dev": "nodemon src/app.ts",
     "start": "ts-node src/app.ts",
     "docker-start": "docker compose up",
-    "docker-build": "docker compose up --build"
+    "docker-build": "docker compose up --build",
+    "docker-prod": "docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build",
+    "docker-stop": "docker compose down"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",

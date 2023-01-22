@@ -9,18 +9,27 @@ services:
     ports:
       - ${DATABASE_PORT}:${DATABASE_PORT}
     volumes:
-      - db:/var/lib/postgresql/data
+      - db_data:/var/lib/postgresql/data
       - ./db/init.sql:/docker-entrypoint-initdb.d/create_tables.sql
   api:
-    container_name: opticourse-api
-    build: .
-    image: opticourse-api
+    image: ${API_NAME}
+    container_name: ${API_NAME}
+    build:
+      context: .
+      dockerfile: dockerfile
+      target: base
+      args:
+        NODE_ENV: development
+    volumes:
+      - ./src:/home/node/app/src
+      - ./nodemon.json:/home/node/app/nodemon.json
     depends_on:
       - api-db
+    expose:
+      - ${API_PORT}
     ports:
       - ${API_PORT}:${API_PORT}
-    volumes:
-      - './:/src'
+    command: yarn run dev
 volumes:
   db:
     driver: local
