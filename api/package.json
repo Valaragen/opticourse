@@ -17,10 +17,10 @@
   },
   "scripts": {
     "build": "tsc -p .",
-    "dev": "nodemon src/app.ts",
+    "dev": "nodemon -L src/app.ts",
     "start": "ts-node src/app.ts",
     "docker-start": "docker compose up",
-    "docker-build": "docker compose up --build",
+    "docker-build": "docker compose up --build --no-recreate",
     "docker-prod": "docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build",
     "docker-stop": "docker compose down"
   },

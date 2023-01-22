@@ -31,5 +31,5 @@ services:
       - ${API_PORT}:${API_PORT}
     command: yarn run dev
 volumes:
-  db:
+  db_data:
     driver: local

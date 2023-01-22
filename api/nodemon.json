@@ -1,15 +1,9 @@
 {
   "verbose": true,
-  "ignore": [
-    "node_modules/",
-    ".git"
-  ],
+  "ignore": [],
   "watch": ["src/**/*.ts"],
-  "env": {
-    "NODE_ENV": "development"
-  },
   "execMap": {
-    "ts": "node --inspect=0.0.0.0:9229 --nolazy -r ts-node/register"
+    "ts": "node --inspect --nolazy -r ts-node/register"
   },
   "ext": "js,ts,json"
 }
