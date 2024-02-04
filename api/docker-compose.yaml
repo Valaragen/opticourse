@@ -4,10 +4,13 @@ services:
     image: postgres
     restart: always
     environment:
+      - POSTGRES_DB=${DB_NAME}
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
     ports:
       - ${DB_PORT}:${DB_PORT}
+    networks:
+      - backend-network
     volumes:
       - db_data:/var/lib/postgresql/data
       - ./db/init.sql:/docker-entrypoint-initdb.d/create_tables.sql
@@ -30,6 +33,13 @@ services:
     ports:
       - ${API_PORT}:${API_PORT}
     command: yarn run dev
+    networks:
+      - backend-network
+
+networks:
+  backend-network:
+    driver: bridge
+
 volumes:
   db_data:
     driver: local

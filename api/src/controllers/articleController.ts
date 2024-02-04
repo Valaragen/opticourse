@@ -28,17 +28,20 @@ export const createArticle = async (req: Request, res: Response): Promise<void> 
 
 export const updateArticle = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
-  const { name, description } = req.body;
   try {
     const article = await Article.findByPk(id);
     if (article) {
-      await article.update({ name, description });
+      const value = await articleSchema.validateAsync(req.body);
+      await article.update(value);
       res.json(article);
     } else {
       res.status(404).json({ error: 'Article not found.' });
     }
   } catch (err) {
-    res.status(400).json({ error: 'Failed to update article.' });
+    if (err instanceof ValidationError)
+      res.status(400).json({ error: err.message });
+    else
+      res.status(400).json({ error: 'Failed to update article.' });
   }
 };
 

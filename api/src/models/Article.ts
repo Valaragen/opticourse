@@ -1,31 +1,11 @@
-import {Column, Model, Table, Unique } from 'sequelize-typescript';
-import sequelize from '../config/sequelize';
-import { DataTypes } from 'sequelize';
+import { Column, Model, Table, Unique } from 'sequelize-typescript';
 
 @Table
-class Article extends Model {
-  @Column
+export default class Article extends Model {
   @Unique
+  @Column
   name!: string;
 
   @Column
   description!: string;
 }
-
-Article.init(
-  {
-    name: {
-      type: DataTypes.STRING(50),
-      allowNull: false
-    },
-    description: {
-      type: DataTypes.STRING(500)
-    }
-  },
-  {
-    sequelize,
-    modelName: 'Article',
-  }
-);
-
-export default Article;

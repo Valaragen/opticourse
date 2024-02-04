@@ -2,6 +2,7 @@ import express, { Application } from 'express';
 import dotenv from 'dotenv';
 import sequelize from './config/sequelize';
 import articleRoutes from './routes/articles';
+import { errorHandler } from './middleware/errorHandler';
 
 dotenv.config();
 
@@ -17,6 +18,15 @@ app.use((req, res, next) => {
   next();
 });
 
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
+
 // synchronise sequelize with the database
 sequelize.sync().then(() => {
   console.log('Database & tables created!');
@@ -24,6 +34,9 @@ sequelize.sync().then(() => {
 
 // Routes
 app.use('/api/articles', articleRoutes);
+
+// error handling middleware
+app.use(errorHandler);
 
 const port = process.env['API_PORT'];
 app.listen(port, () => {
