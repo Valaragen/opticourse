@@ -4,10 +4,10 @@ services:
     image: postgres
     restart: always
     environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
     ports:
-      - ${DATABASE_PORT}:${DATABASE_PORT}
+      - ${DB_PORT}:${DB_PORT}
     volumes:
       - db_data:/var/lib/postgresql/data
       - ./db/init.sql:/docker-entrypoint-initdb.d/create_tables.sql
