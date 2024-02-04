@@ -1,15 +1,31 @@
-import express from 'express';
-import dotenv from 'dotenv'
+import express, { Application } from 'express';
+import dotenv from 'dotenv';
+import sequelize from './config/sequelize';
+import articles from './routes/articles';
 
-dotenv.config()
+dotenv.config();
 
-const app = express();
-const port = process.env['API_PORT'];
+const app: Application = express();
 
-app.get('/api', (req, res) => {
-  res.send('Hello, World!' + port);
+// enable CORS for all origins
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Expose-Headers', 'x-total-count');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH');
+  res.header('Access-Control-Allow-Headers', 'Content-Type,authorization');
+
+  next();
 });
 
+// synchronise sequelize with the database
+sequelize.sync().then(() => {
+  console.log('Database & tables created!');
+});
+
+// Routes
+app.use('/api/articles', articles);
+
+const port = process.env['API_PORT'];
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });
