@@ -1,7 +1,7 @@
 import express, { Application } from 'express';
 import dotenv from 'dotenv';
 import sequelize from './config/sequelize';
-import articles from './routes/articles';
+import articleRoutes from './routes/articles';
 
 dotenv.config();
 
@@ -23,7 +23,7 @@ sequelize.sync().then(() => {
 });
 
 // Routes
-app.use('/api/articles', articles);
+app.use('/api/articles', articleRoutes);
 
 const port = process.env['API_PORT'];
 app.listen(port, () => {
